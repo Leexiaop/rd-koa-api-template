@@ -1,19 +1,19 @@
 const router = require('koa-router')()
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
+const story = require('./story')
+const order = require('./order')
+const me = require('./order')
+const message = require('./order')
+const search = require('./order')
+
+router.get('/', function (ctx, next) {
+  ctx.body = '这是一个初始化的请求'
 })
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
+router.use('/story', story.routes(), story.allowedMethods)
+router.use('/order', order.routes(), order.allowedMethods)
+router.use('/me', me.routes(), me.allowedMethods)
+router.use('/message', message.routes(), message.allowedMethods)
+router.use('/search', search.routes(), search.allowedMethods)
 
 module.exports = router
