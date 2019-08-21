@@ -5,11 +5,14 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-
+const cors = require('koa2-cors')
 const router = require('./routes/index')
 
 // error handler
 onerror(app)
+
+//  处理跨域
+app.use(cors())
 
 // middlewares
 app.use(bodyparser({
@@ -38,5 +41,7 @@ app.use(router.routes(), router.allowedMethods())
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });
+
+
 
 module.exports = app
