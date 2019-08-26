@@ -1,16 +1,13 @@
 const list = require('koa-router')()
-
+const mysql = require('../../config/mysqlConfig')
 list.get('/', async (ctx, next) => {
-    ctx.body = {
-        code: 0,
-        data: [
-            {
-                id: 1,
-                title: '世界那么大',
-                content: 'dddddd'
-            }
-        ]
-    }
+    let name = ctx.query.name
+    let _sql = `select * from user where name="${name}";`
+    await mysql.mysqlQuery(_sql).then(res => {
+        ctx.body = {
+            code: 0,
+            data: res
+        }
+    })
 })
-
 module.exports = list
